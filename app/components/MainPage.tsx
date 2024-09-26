@@ -44,7 +44,7 @@ export default function MainPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query, openaiApiKey }),
+        body: JSON.stringify({ query, openaiApiKey, limit: 5 }),
       });
       const data = await response.json();
 
