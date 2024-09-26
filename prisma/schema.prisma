@@ -13,7 +13,7 @@ datasource db {
 }
 
 model SourceChunk {
-    id                String                @id @default(cuid())
+    id                String  @id @default(cuid())
     content           String
-    vectorizedContent Unsupported("vector")
+    vectorizedContent Float[]
 }

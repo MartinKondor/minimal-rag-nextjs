@@ -48,13 +48,16 @@ export async function PUT(request: NextRequest) {
     const createdSourceChunks = chunks.map((chunk, index) => {
       return {
         content: chunk,
-        embedding: embeddings[index],
+        vectorizedContent: embeddings[index],
       };
     });
     await Promise.all(
       createdSourceChunks.map(async (sourceChunk) => {
         return prisma.sourceChunk.create({
-          data: sourceChunk,
+          data: {
+            content: sourceChunk.content,
+            vectorizedContent: sourceChunk.vectorizedContent,
+          },
         });
       }),
     );
