@@ -16,6 +16,10 @@ export async function POST(request: NextRequest) {
         content: query,
         score: 1,
       },
+      {
+        content: query,
+        score: 0.5,
+      },
     ] as SearchResult[];
 
     return NextResponse.json({ searchResults });

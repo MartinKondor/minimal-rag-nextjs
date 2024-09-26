@@ -1,0 +1,1 @@
+export const MAX_CHUNK_CHARACTERS = 500;
