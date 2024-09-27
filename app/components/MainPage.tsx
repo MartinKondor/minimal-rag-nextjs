@@ -2,9 +2,21 @@
 
 import React, { useState, useRef, ChangeEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Upload,
+  Search,
+  File,
+  ArrowRight,
+  Key,
+  FileText,
+  Database,
+  Cpu,
+} from 'lucide-react';
+
 import { Input } from '@/app/components/ui/input';
 import { Button } from '@/app/components/ui/button';
 import { Toast } from '@/app/components/ui/toast';
+import { StepItem } from '@/app/components/StepItem';
 import {
   Card,
   CardHeader,
@@ -12,8 +24,9 @@ import {
   CardDescription,
   CardContent,
 } from '@/app/components/ui/card';
-import { Upload, Search, File, ArrowRight, Key } from 'lucide-react';
 import { SearchResult } from '@/lib/types';
+import { MAX_FILE_CHARACTER_LENGTH } from '@/lib/constants';
+import { cn } from '@/lib/client-utils';
 
 interface ToastState {
   message: string;
@@ -77,7 +90,7 @@ export default function MainPage() {
 
       if (selectedFile.size > 20000) {
         setToast({
-          message: 'File content must be under 20,000 characters',
+          message: `File content must be under ${MAX_FILE_CHARACTER_LENGTH} characters`,
           type: 'error',
         });
         return;
@@ -138,11 +151,40 @@ export default function MainPage() {
               🤖 Minimal RAG Search
             </CardTitle>
             <CardDescription className="text-center text-gray-600 dark:text-gray-300">
-              Enter your OpenAI API key, upload a .txt file (max 20,000
-              characters), then enter your search query.
+              Local <i>(free)</i> vector search utilizing the power of pgvector
+              with OpenAI&apos;s embedding models.
             </CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <StepItem
+                icon={<Key className="h-6 w-6" />}
+                step={1}
+                title="Enter API Key"
+                description="Provide your OpenAI API key for the embedding model."
+              />
+              <StepItem
+                icon={<FileText className="h-6 w-6" />}
+                step={2}
+                title="Upload File"
+                description="Upload a .txt file (max 20,000 characters)."
+              />
+              <StepItem
+                icon={<Database className="h-6 w-6" />}
+                step={3}
+                title="Enter Query"
+                description="Type your search query to find relevant information."
+              />
+              <StepItem
+                icon={<Cpu className="h-6 w-6" />}
+                step={4}
+                title="View Results"
+                description="See the most relevant chunks from the source file."
+              />
+            </div>
+
+            <hr className="my-8" />
+
             <div className="flex flex-col space-y-6">
               <motion.div
                 className="flex items-center space-x-2"
@@ -177,7 +219,12 @@ export default function MainPage() {
                 <Button
                   onClick={handleUploadClick}
                   variant="outline"
-                  className="flex-1"
+                  className={cn(
+                    'flex-1',
+                    !openaiApiKey
+                      ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                      : 'bg-blue-600 hover:bg-blue-700 text-white hover:text-white',
+                  )}
                 >
                   <Upload className="mr-2 h-4 w-4" /> Select File
                 </Button>
@@ -188,7 +235,7 @@ export default function MainPage() {
                 >
                   {uploading ? (
                     <motion.div
-                      className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                      className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"
                       animate={{ rotate: 360 }}
                       transition={{
                         duration: 1,
@@ -219,38 +266,44 @@ export default function MainPage() {
                     </div>
                   </motion.div>
                 )}
-              </AnimatePresence>
-
-              <div className="flex space-x-2">
-                <Input
-                  type="text"
-                  placeholder="Enter search query..."
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="flex-grow"
-                  disabled={!file || !openaiApiKey}
-                />
-                <Button
-                  onClick={handleSearch}
-                  disabled={loading || !file || !openaiApiKey}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="p-4 rounded-md"
                 >
-                  {loading ? (
-                    <motion.div
-                      className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: 'linear',
-                      }}
+                  <div className="flex space-x-2">
+                    <Input
+                      type="text"
+                      placeholder="Enter search query..."
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      className="flex-grow"
+                      disabled={!file || !openaiApiKey}
                     />
-                  ) : (
-                    <Search className="mr-2 h-4 w-4" />
-                  )}
-                  {loading ? 'Searching...' : 'Search'}
-                </Button>
-              </div>
+                    <Button
+                      onClick={handleSearch}
+                      disabled={loading || !file || !openaiApiKey}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      {loading ? (
+                        <motion.div
+                          className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"
+                          animate={{ rotate: 360 }}
+                          transition={{
+                            duration: 1,
+                            repeat: Infinity,
+                            ease: 'linear',
+                          }}
+                        />
+                      ) : (
+                        <Search className="mr-2 h-4 w-4" />
+                      )}
+                      {loading ? 'Searching...' : 'Search'}
+                    </Button>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </CardContent>
           <CardContent>
@@ -266,7 +319,7 @@ export default function MainPage() {
                     Most Relevant Results
                   </h3>
                   {results
-                    .sort((result) => result.score)
+                    .sort((a, b) => b.score - a.score)
                     .map((result, index) => (
                       <motion.div
                         key={index}
