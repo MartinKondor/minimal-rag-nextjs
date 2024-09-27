@@ -1,0 +1,42 @@
+Protect Your King
+Get your king to the corner of the board where he is usually safer. Don't put off castling. You should usually castle as quickly as possible. Remember, it doesn't matter how close you are to checkmating your opponent if your own king is checkmated first!
+
+How To Play Chess Variants
+While most people play standard chess rules, some people like to play chess with changes to the rules. These are called "chess variants". Each variant has its own rules:
+
+Chess960: In Chess960 (Fischer Random), the initial position of the pieces is set at random. Pawns keep their normal initial position but the rest of the pieces are arranged randomly.
+King Of The Hill: In this format, the goal is to get your king to the center of the board or "top of the hill."
+Bughouse: This format is played in pairs. When one player captures a piece from the opponent, this piece will become available to his or her teammate. For example: If I play as White and my teammate, who is Black, takes a white knight from her opponent, in my turn I will have a knight that I can put on any free square on my board. I can do so in any of my future turns.
+Crazyhouse: This is a very exciting format since it allows you to use the pieces you take from your opponent. That is, if I play as White and I take a black pawn from my opponent, that pawn will turn into a white pawn that I can put on the board as part of my army. I can do so in any of my future turns.
+3-Check: In this format, the first player who checks the opponent's king three times, wins.
+
+How Do I Get Better At Chess?
+Knowing the rules and basic strategies is only the beginning - there is so much to learn in chess that you can never learn it all in a lifetime! To improve you need to do three things:
+
+Play lots of chess — Just keep playing! Play as much as possible. You should learn from each game – those you win and those you lose.
+Study with chess lessons — If you really want to improve quickly then you should do some online chess lessons. You can find online chess lessons here.
+Have fun — Don't get discouraged if you don't win all of your games right away. Everyone loses – even world champions. As long as you continue to have fun and learn from the games you lose then you can enjoy chess forever!
+stats Recommended Article -> 7 Tips to Get Better at Chess
+
+What is the best first move in chess?
+While there is no one agreed-upon best move in chess, it's important to try to control the center right away. This usually results in most players playing one of their central pawns (in front of king or queen) forward two squares with either 1. d4 or 1. e4. Some other players prefer 1. c4 or 1. Nf3. Most other moves are not as good. Bobby Fischer believed that moving the king-pawn 1. e4 was best.
+
+Which Color Starts In Chess?
+The player with the white pieces always moves first.
+
+Can A Pawn Move Backwards?
+Pawns cannot move backward. However, when a pawn gets to the other side of the board you must promote it to another piece (such as a queen). Then it moves just like that piece and can move backward.
+
+Can You Move More Than One Piece At A Time In Chess?
+You can only move one chess piece at a time when it is your turn to move - with one exception! When you castle, you move both the king and the rook in one move.
+
+Which Is The Most Important Chess Piece?
+The king is the most important chess piece. If you lose the king, you lose the game. But the queen is the most powerful chess piece.
+
+When Was Chess Invented?
+The origins of chess are not exactly clear, though most believe it evolved from earlier chess-like games played in India almost two thousand years ago. The game of chess we know today has been around since the 15th century where it became popular in Europe.
+
+chessbook Recommended Article -> The 10 Most Important Moments in Chess History
+
+What Was The Longest Game In Chess History?
+The longest tournament chess game (in terms of moves) ever to be played was Nikolić vs. Arsović in 1989 and played in Belgrade, Serbia.

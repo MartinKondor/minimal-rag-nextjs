@@ -1,4 +1,5 @@
 import { createOpenAIEmbedding } from '@/lib/ai-service';
+import { MAX_FILE_CHARACTER_LENGTH } from '@/lib/constants';
 import { chunkFile } from '@/lib/preparation';
 import { PrismaClient } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
@@ -16,9 +17,11 @@ export async function PUT(request: NextRequest) {
   try {
     const { content, openaiApiKey } = UploadSchema.parse(await request.json());
 
-    if (content.length > 20000) {
+    if (content.length > MAX_FILE_CHARACTER_LENGTH) {
       return NextResponse.json(
-        { error: 'File content must be under 20,000 characters' },
+        {
+          error: `File content must be under ${MAX_FILE_CHARACTER_LENGTH} characters`,
+        },
         { status: 400 },
       );
     }
