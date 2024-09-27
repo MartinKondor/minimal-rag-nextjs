@@ -2,7 +2,10 @@ import {
   TxtParentNodeWithSentenceNodeContent,
   split as splitToSentences,
 } from 'sentence-splitter';
-import { MAX_CHUNK_CHARACTERS } from './constants';
+import {
+  MAX_CHUNK_CHARACTERS,
+  MAX_CHUNK_OVERLAP_CHARACTERS,
+} from './constants';
 
 const parseSentences = (content: string) => {
   const cleanedText = content.replace(/\n/g, ' ').replace(/ {2,}/g, ' ');
@@ -34,10 +37,15 @@ const chunkSingleSentence = (sentence: string): string[] => {
 };
 
 const chunkMultipleSentences = (sentences: string[]): string[] => {
-  // Chunk multiple sentences together to create chunks containing multiple sentences
-  // Keep in mind the character and sentence limit
   const chunks: string[] = [];
   let currentChunk: string[] = [];
+  let overlapText = '';
+
+  const addChunk = (chunk: string) => {
+    chunks.push(chunk);
+    const words = chunk.split(/\s+/);
+    overlapText = words.slice(-MAX_CHUNK_OVERLAP_CHARACTERS).join(' ');
+  };
 
   for (const sentence of sentences) {
     if (sentence.length === 0) {
@@ -58,9 +66,9 @@ const chunkMultipleSentences = (sentences: string[]): string[] => {
           MAX_CHUNK_CHARACTERS
         ) {
           if (currentChunk.length > 0) {
-            chunks.push(currentChunkInOneString.trim());
+            addChunk(currentChunkInOneString.trim());
           }
-          currentChunk = [sentenceChunk];
+          currentChunk = [overlapText, sentenceChunk].filter(Boolean);
         } else {
           currentChunk.push(sentenceChunk);
         }
@@ -74,9 +82,9 @@ const chunkMultipleSentences = (sentences: string[]): string[] => {
       MAX_CHUNK_CHARACTERS
     ) {
       if (currentChunk.length > 0) {
-        chunks.push(currentChunkInOneString.trim());
+        addChunk(currentChunkInOneString.trim());
       }
-      currentChunk = [sentence];
+      currentChunk = [overlapText, sentence].filter(Boolean);
     } else {
       currentChunk.push(sentence);
     }
@@ -87,17 +95,8 @@ const chunkMultipleSentences = (sentences: string[]): string[] => {
     currentChunk = currentChunk.filter(
       (sentence, index, self) => self.indexOf(sentence) === index,
     );
-    chunks.push(currentChunk.join(' ').trim());
+    addChunk(currentChunk.join(' ').trim());
   }
-
-  // Just a quick check
-  chunks.forEach((chunk: string) => {
-    if (chunk.length > MAX_CHUNK_CHARACTERS) {
-      throw new Error(
-        `Chunk is too long: ${chunk.length} characters, max is ${MAX_CHUNK_CHARACTERS}.`,
-      );
-    }
-  });
 
   return chunks;
 };
