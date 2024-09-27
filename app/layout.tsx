@@ -16,22 +16,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        {children}
-        <footer className="z-0 bg-secondary py-4 text-center text-sm text-muted-foreground bottom-0 w-full absolute">
-          <p>
-            &copy; {new Date().getFullYear()} Made by{' '}
-            <a
-              href="https://martinkondor.github.io/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              Martin Kondor
-            </a>
-            , an AI and full-stack developer
-          </p>
-        </footer>
+      <body className={`${inter.className} pt-16`}>
+        {' '}
+        <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-md py-4">
+          <div className="container mx-auto px-4 flex justify-between items-center">
+            <h1 className="text-4xl font-thin text-primary">Minimal RAG</h1>
+            <nav>
+              <a
+                href="https://martinkondor.github.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+              >
+                Made by Martin Kondor
+              </a>
+            </nav>
+          </div>
+        </header>
+        <main className="min-h-screen -mt-1">{children}</main>
       </body>
     </html>
   );
