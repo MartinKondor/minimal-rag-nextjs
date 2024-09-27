@@ -44,22 +44,23 @@ export async function PUT(request: NextRequest) {
         .map((chunk) => createOpenAIEmbedding(openai, chunk)),
     );
 
-    // Finally, create source chunks in the database
-    const createdSourceChunks = chunks.map((chunk, index) => {
-      return {
-        content: chunk,
-        embeddings: embeddings[index],
-      };
+    // Remove all other embeddings
+    await prisma.sourceChunk.deleteMany();
+
+    // Use a transaction to ensure all insertions are successful
+    // NOTE: Ugly because Prisma does not support pgvector currently
+    await prisma.$transaction(async (tx) => {
+      for (let i = 0; i < chunks.length; i++) {
+        await tx.$executeRaw`
+          INSERT INTO "SourceChunk" (id, content, embeddings)
+          VALUES (
+            ${String(new Date().getTime()) + crypto.randomUUID()},
+            ${chunks[i]},
+            ${JSON.stringify(embeddings[i])}::vector
+          )
+        `;
+      }
     });
-    await Promise.all(
-      createdSourceChunks.map(async (sourceChunk) => {
-        return prisma.sourceChunk.create({
-          data: {
-            ...sourceChunk,
-          },
-        });
-      }),
-    );
 
     return NextResponse.json({
       message: 'File uploaded successfully',
