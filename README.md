@@ -102,3 +102,7 @@ Copyright © Martin Kondor
 Martin Kondor - [https://martinkondor.github.io/](https://martinkondor.github.io/)
 
 Project Link: [https://github.com/MartinKondor/minimal-rag-nextjs](https://github.com/MartinKondor/minimal-rag-nextjs)
+
+## License
+
+MIT License. See the [LICENSE](./LICENSE) file for more details.
