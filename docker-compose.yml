@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: postgrespassword
       POSTGRES_DB: postgresdb
     ports:
-      - 54320:5432
+      - 54322:5432
     networks:
       - app_network
     restart: unless-stopped

@@ -5,7 +5,7 @@ CREATE EXTENSION IF NOT EXISTS "vector";
 CREATE TABLE "SourceChunk" (
     "id" TEXT NOT NULL,
     "content" TEXT NOT NULL,
-    "vectorizedContent" DOUBLE PRECISION[],
+    "embeddings" vector,
 
     CONSTRAINT "SourceChunk_pkey" PRIMARY KEY ("id")
 );
