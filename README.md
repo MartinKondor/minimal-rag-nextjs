@@ -1,6 +1,6 @@
 # Minimal RAG NextJS
 
-![Usage Demo](./docs/usage.gif)
+<div align="center"><img src="./docs/usage.gif" height="599px" /></div>
 
 ## Overview
 
