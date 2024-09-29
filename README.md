@@ -85,11 +85,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - Optimize vector search for larger datasets
 - Implement more advanced RAG techniques
 
-## License
-
-This project is licensed under the BSD-3-Clause License. See the [LICENSE](LICENSE) file for details.
-
-Copyright © Martin Kondor
 
 ## Acknowledgements
 
@@ -104,5 +99,7 @@ Martin Kondor - [https://martinkondor.github.io/](https://martinkondor.github.io
 Project Link: [https://github.com/MartinKondor/minimal-rag-nextjs](https://github.com/MartinKondor/minimal-rag-nextjs)
 
 ## License
+
+Copyright © Martin Kondor
 
 MIT License. See the [LICENSE](./LICENSE) file for more details.
