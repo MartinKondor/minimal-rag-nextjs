@@ -1,6 +1,6 @@
 # Minimal RAG NextJS
 
-<div align="center"><img src="./docs/usage.gif" height="599px" /></div>
+<div align="center"><img src="./docs/usage.gif" height="599px" min-width="750px" /></div>
 
 ## Overview
 
